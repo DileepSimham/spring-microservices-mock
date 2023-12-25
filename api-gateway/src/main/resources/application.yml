@@ -1,0 +1,24 @@
+server:
+  port: 8484
+
+spring:
+  application:
+    name: mock-gateway
+
+
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        register: true
+
+
+    gateway:
+      routes:
+        - id: aadhar
+          uri: lb://aadhar-ms
+          predicates:
+            - Path=/mock/aadhar/**
+          filters:
+            - StripPrefix=1
